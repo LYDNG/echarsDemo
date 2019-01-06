@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>嵌套环形图</title>
+</head>
+<body>
+
+    <div id="divChart" style="width:100%;height:100%;"></div>
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/echarts.js"></script>
+    <script>
+        var myChart = null;
+        $(function () {
+            $("#divChart").height($(window).height() - 16);
+
+            myChart = echarts.init(document.getElementById('divChart'));
+            myChart.showLoading();
+
+            var option = {
+                backgroundColor: '#1f1f1f',//报表背景色
+                title: {                                    //标题组件，包含主标题和副标题
+                    text: '画大饼画大饼画大饼画大饼画大饼', //主标题
+                    textStyle:
+                    {
+                        color: "white",                 //主标题字体颜色
+                        fontStyle: "normal",            //字体的风格italic  oblique
+                        fontWeight: "normal",            //字体的粗细  bold bolder  lighter 100 | 200 | 300 | 400...
+                    },          
+                    textAlign: "center",                  //标题对其方式
+                    subtext: '三级大饼',                //副标题
+                    link: 'javascript:test1();',          //主标题点击触发
+                    target:'self',
+                    itemGap: 130,                           //主副标题之间的间距
+                    left: '30%',                           //组件离容器左侧的距离
+                    top: 200,                                //组件离容器上侧的距离
+                    right: 20,                              //组件离容器右侧的距离
+                    bottom: 20,                             //组件离容器下侧的距离
+                },
+                legend: {                                    //图例组件  可以通过点击图例可以控制显示不显示
+                    orient: 'horizontal',                      //图例列表的布局朝向
+                    x: '40%',
+                    y: 'top',
+                    data: ['直达', '营销广告', '搜索引擎', '非搜索引擎', '邮件营销', '联盟广告', '视频广告', '百度', '谷歌', '必应', '其他']
+                },
+                tooltip: {                                   //提示框组件
+                    show: true,
+                    trigger: 'item',    //item 主要在数据项图形触发，主要在散点图，饼图等  无类目轴  的图表中使用。 （axis）
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"   //饼图、仪表盘、漏斗图: {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（所在系列百分比）
+                },
+                series: [                                  //系列列表。每个系列通过 type 决定自己的图表类型
+                    {
+                        name:"系列1",
+                        type: 'pie',//图表类型
+                        radius: ['55%', '85%'], //半径范围
+                        clockwise: true,//饼图排列方向
+                        startAngle :0,//开始角度
+                        selectedMode: 'single',
+                        minAngle: 20,  //最小的扇区角度（0 ~ 360），用于防止某个值过小导致扇区太小影响交互。
+                        center:["50%","50%"],
+                        data: [
+                            { value: 335, name: '直达' },
+                            { value: 310, name: '邮件营销' },
+                            { value: 234, name: '联盟广告' },
+                            { value: 135, name: '视频广告' },
+                            { value: 1048, name: '百度' },
+                            { value: 251, name: '谷歌' },
+                            { value: 147, name: '必应' },
+                            { value: 102, name: '其他' }
+                        ]
+                    },
+                    {
+                        name: "系列2",
+                        type: 'pie',
+                        selectedMode: 'multiple',
+                        radius: ['35%', '45%'],
+                        label: {
+                            normal: {
+                                position: 'inner'   //内容显示位置
+                            }
+                        },
+                        data: [
+                            { value: 335, name: '直达', selected: true },
+                            { value: 679, name: '营销广告' },
+                            { value: 1548, name: '搜索引擎' }
+                        ]
+                    },
+                    {
+                        name: "系列3",
+                        type: 'pie',
+                        radius: [0, '30%'],
+                        selectedMode: 'false',
+                        label: {
+                            normal: {
+                                position: 'inner'
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: true
+                            }
+                        },
+                        data: [
+                            { value: 1014, name: '非搜索引擎' },
+                            { value: 1548, name: '搜索引擎' }
+                        ]
+                    }
+                ]
+            };
+            //设置图表实例的配置项以及数据，所有参数和数据的修改都可以通过setOption完成，
+            //ECharts 会合并新的参数和数据，然后刷新图表。
+            //如果开启动画的话，ECharts 找到两组数据之间的差异然后通过合适的动画去表现数据的变化。
+            myChart.setOption(option);
+            myChart.hideLoading();
+        });
+
+        function test1() {
+            alert("hello click title！");
+        }
+    </script>
+</body>
+</html>

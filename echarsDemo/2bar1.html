@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>嵌套环形图</title>
+</head>
+<body>
+
+    <div id="divChart" style="width:100%;height:100%;"></div>
+    
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/echarts.js"></script>
+    <script src="Scripts/dark.js"></script>
+    <script>
+        
+        var myChart = null;
+        $(function () {
+            $("#divChart").height($(window).height() - 16);
+
+            myChart = echarts.init(document.getElementById('divChart'), "dark");
+            myChart.showLoading();
+
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: "rgba(9, 152, 205, 0.93)",
+                    extraCssText: "z-index:99999;opacity: 0.8",
+                    textStyle: {
+                        color: "#fff"
+                    },
+                    formatter: function (t) {
+                        var str = "时间:" + t[0].name + "<br/>";
+                        str += t[0].seriesName + " : " + t[0].value + "<br/>";
+                        str += t[1].seriesName + " : " + t[1].value + "<br/>";
+                        str += t[5].seriesName + " : " + t[5].value + "<br/>";
+                        str += t[6].seriesName + " : " + t[6].value + "<br/>";
+                        str += t[2].seriesName + " : " + t[2].value + "%<br/>";
+                        str += t[4].seriesName + " : " + t[4].value + "%<br/>";
+                        str += t[3].seriesName + " : " + t[3].value + "%<br/>";
+                        return str;
+                    }
+                },
+                legend: {
+                    show: true,
+                    top: '4%',
+                    right: '5%',
+                    textStyle: { color: '#f0f0f0' }, data: ['呼入量', '呼出量', '目标接通率', '接通率']
+                },
+                xAxis: [
+                    {
+                        splitLine: { show: false },
+                        type: 'category',
+                        data: ["07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00"],
+                        axisLabel: {
+                            textStyle: {
+                                color: '#f0f0f0',
+                                interval: 0
+                            }
+                        }
+                    }
+                ],
+                grid: { show: false, left: '5%', bottom: '10%', top: '25%', right: '8%' },
+                yAxis: [
+                    {
+                        splitLine: {
+                            lineStyle: {
+                                show: false
+                            }
+                        },
+                        type: 'value', name: '', interval: 500,
+                        axisLabel: {
+                            formatter: '{value} 次',
+                            textStyle: {
+                                color: '#f0f0f0'
+                            }
+                        }
+                    },
+                    {
+                        type: 'value', name: '', min: 0, max: 100, interval: 20,
+                        splitLine: {
+                            lineStyle: {
+                                color: "#424242"
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value} %',
+                            textStyle: {
+                                color: '#f0f0f0'
+                            }
+                        }
+                    }
+                ],
+                color: ['#0f94f3', '#c1e4ff', '#94892c', '#668c3c'],
+                series: [
+                    {
+                        name: '呼入量', type: 'bar', barWidth: 15,
+                        data: [9, 32, 115, 406, 463, 477, 414, 434, 394, 265, 260, 248, 240, 289, 366, 360, 325, 331, 334, 278, 1, null, null, null, null]
+                    },
+                    {
+                        name: '呼出量', type: 'bar', barWidth: 15
+                    },
+                    {
+                        name: '接通率', type: 'line', yAxisIndex: 1
+                    },
+                    {
+                        name: '满意度', type: 'line', yAxisIndex: 1,
+                        symbolSize: 0,
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    width: 0
+                                }
+                            }
+                        }
+                    },
+                    {
+                        name: '目标接通率', type: 'line', yAxisIndex: 1,
+                        data: [80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80]
+                    },
+                    {
+                        name: '转座席', type: 'line',
+                        symbolSize: 0,
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    width: 0
+                                }
+                            }
+                        }
+                    },
+                    {
+                        name: '接听量', type: 'line',
+                        symbolSize: 0,
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    width: 0
+                                }
+                            }
+                        }
+                    }
+                ]
+            };
+            if (option && typeof option === "object") {
+                myChart.setOption(option);
+            }
+            myChart.hideLoading();
+        });
+    </script>
+</body>
+</html>

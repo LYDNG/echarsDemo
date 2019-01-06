@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>嵌套环形图</title>
+</head>
+<body>
+
+    <div id="divChart" style="width:100%;height:100%;"></div>
+    
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/echarts.js"></script>
+    <script src="Scripts/dark.js"></script>
+    <script>
+        
+        var myChart = null;
+        $(function () {
+            $("#divChart").height($(window).height() - 16);
+
+            myChart = echarts.init(document.getElementById('divChart'), "dark");
+            myChart.showLoading();
+
+            var option = {
+                grid: { show: false, left: '8%', bottom: '10%', top: '30%', right: '8%' },//直角坐标系网格
+                legend: {
+                    x: '80%',
+                    y: '20%',
+                    data: ['目标接通率',
+                        {
+                            name: "实际接通率",
+                            icon: "triangle",              //'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
+                            textStyle: { color: "red" }  //图例样式
+                        }
+                    ]
+                },
+                xAxis: [
+                    {
+                        type: 'category',//作为类目  此时通过data设数据
+                        data: ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'],  //类目数据
+
+                        axisLine: {   //坐标轴轴线相关设置
+                            lineStyle: {
+                                color: 'red',
+                                width: 3,
+                                opacity: 0.8
+                            }
+                        },
+                        axisLabel: {     //坐标轴刻度标签的相关设置
+                            textStyle: {
+                                color: 'green'//坐标值的具体的颜色
+                            },
+                            rotate: -45,
+                            formatter: '时间:{value}'
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        max: 100,
+                        axisLabel: {
+                            formatter: '{value} %'
+                        }
+                    }
+                ],
+                tooltip: { trigger: "axis" },//由于tooltip.trigger的默认值是item  此处需要设置
+                color: ["#63a7b0", "#e68a6a"],
+                series: [
+                    {
+                        name: '实际接通率',
+                        type: 'bar',//条形图
+                        barWidth: 35,//宽度
+                        data: [6.7, 52.0, 66.1, 79.6, 81.4, 0, 95.8, 77.5, 69.8, 61.4, 65.1, 44.4, 3.3]
+                    },
+                    {
+                        name: '目标接通率',
+                        type: 'line',
+                        data: [80, 80, 80, 80, 80, 80, null, 80, 80, 80, 80, 80, 80]
+                    }
+                ]
+            };
+            if (option && typeof option === "object") {
+                myChart.setOption(option);
+            }
+            myChart.hideLoading();
+        });
+    </script>
+</body>
+</html>

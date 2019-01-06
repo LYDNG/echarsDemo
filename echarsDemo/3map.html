@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>全国地图</title>
+</head>
+<body>
+    <div id="spread" style="width:100%;height:100%;"></div>
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/echarts.js"></script>
+    <script src="Scripts/echars/china.js"></script>
+    <script>
+        var myChart = null;
+        var option = null;
+        $(function () {
+            $("#spread").height($(window).height() - 16);
+            initChina();
+        });
+        //图例组件 legend、标题组件 title、视觉映射组件 visualMap、数据区域缩放组件 dataZoom、时间线组件 timeline
+        var initChina = function () {
+
+            myChart = echarts.init(document.getElementById('spread'));
+            myChart.showLoading();
+            option = {
+                layoutCenter: ['50%', '50%'],//报表位置
+                layoutSize: '120%',//报表缩放
+                backgroundColor: '#1f1f1f',//报表背景色
+                tooltip: { trigger: 'item' },
+                legend: {
+                    selectedMode: 'single',
+                    orient: 'horizontal',
+                    left: '4%',
+                    top: '18%',
+                    data:[{ name: '签收量', textStyle: { color: '#fff' } }, { name: '揽件量', textStyle: { color: '#fff' } }]
+                },
+                dataRange://值域漫游
+                {
+                    max: 2000000,
+                    left: '4%',
+                    text: ['高', '低'],
+                    color: ['#008bf6', '#ffffff']   //渐变样式区域
+                },
+                color: ['green', 'blue'],
+                series: [
+                    {
+                        name: '揽件量',
+                        type: 'map',
+                        mapType: 'china',
+                        label: {
+                            normal: { show: true },
+                            emphasis: { show: true }
+                        },
+                        data: [
+                            {
+                                "name": "北京",
+                                "value": "670037"
+                            },
+                            {
+                                "name": "天津",
+                                "value": "133128"
+                            },
+                            {
+                                "name": "河北",
+                                "value": "445325"
+                            },
+                            {
+                                "name": "山西",
+                                "value": "71943"
+                            },
+                            {
+                                "name": "内蒙古",
+                                "value": "20164"
+                            },
+                            {
+                                "name": "辽宁",
+                                "value": "206679"
+                            },
+                            {
+                                "name": "吉林",
+                                "value": "63062"
+                            },
+                            {
+                                "name": "黑龙江",
+                                "value": "88936"
+                            },
+                            {
+                                "name": "上海",
+                                "value": "1077289"
+                            },
+                            {
+                                "name": "江苏",
+                                "value": "1347449"
+                            },
+                            {
+                                "name": "浙江",
+                                "value": "3250224"
+                            },
+                            {
+                                "name": "安徽",
+                                "value": "395348"
+                            },
+                            {
+                                "name": "福建",
+                                "value": "643257"
+                            },
+                            {
+                                "name": "江西",
+                                "value": "158383"
+                            },
+                            {
+                                "name": "山东",
+                                "value": "682382"
+                            },
+                            {
+                                "name": "河南",
+                                "value": "601640"
+                            },
+                            {
+                                "name": "湖北",
+                                "value": "445956"
+                            },
+                            {
+                                "name": "湖南",
+                                "value": "299780"
+                            },
+                            {
+                                "name": "广东",
+                                "value": "4706976"
+                            },
+                            {
+                                "name": "广西",
+                                "value": "190734"
+                            },
+                            {
+                                "name": "海南",
+                                "value": "8324"
+                            },
+                            {
+                                "name": "重庆",
+                                "value": "107843"
+                            },
+                            {
+                                "name": "四川",
+                                "value": "323942"
+                            },
+                            {
+                                "name": "贵州",
+                                "value": "43662"
+                            },
+                            {
+                                "name": "云南",
+                                "value": "145454"
+                            },
+                            {
+                                "name": "西藏",
+                                "value": "2493"
+                            },
+                            {
+                                "name": "陕西",
+                                "value": "141237"
+                            },
+                            {
+                                "name": "甘肃",
+                                "value": "11058"
+                            },
+                            {
+                                "name": "青海",
+                                "value": "1283"
+                            },
+                            {
+                                "name": "宁夏",
+                                "value": "12255"
+                            },
+                            {
+                                "name": "新疆",
+                                "value": "13042"
+                            },
+                            {
+                                "name": "香港",
+                                "value": "336"
+                            }
+                        ]
+                    },
+                    {
+                        name: '签收量',
+                        type: 'map',
+                        mapType: 'china',
+                        label: {
+                            normal: { show: true },
+                            emphasis: { show: true }
+                        },
+                        data: [
+                            {
+                                "name": "北京",
+                                "value": "681817"
+                            },
+                            {
+                                "name": "天津",
+                                "value": "216927"
+                            },
+                            {
+                                "name": "河北",
+                                "value": "580908"
+                            },
+                            {
+                                "name": "山西",
+                                "value": "293427"
+                            },
+                            {
+                                "name": "内蒙古",
+                                "value": "177360"
+                            },
+                            {
+                                "name": "辽宁",
+                                "value": "464269"
+                            },
+                            {
+                                "name": "吉林",
+                                "value": "217648"
+                            },
+                            {
+                                "name": "黑龙江",
+                                "value": "277639"
+                            },
+                            {
+                                "name": "上海",
+                                "value": "815227"
+                            },
+                            {
+                                "name": "江苏",
+                                "value": "1423337"
+                            },
+                            {
+                                "name": "浙江",
+                                "value": "1455531"
+                            },
+                            {
+                                "name": "安徽",
+                                "value": "539145"
+                            },
+                            {
+                                "name": "福建",
+                                "value": "625913"
+                            },
+                            {
+                                "name": "江西",
+                                "value": "350603"
+                            },
+                            {
+                                "name": "山东",
+                                "value": "881277"
+                            },
+                            {
+                                "name": "河南",
+                                "value": "681961"
+                            },
+                            {
+                                "name": "湖北",
+                                "value": "558970"
+                            },
+                            {
+                                "name": "湖南",
+                                "value": "518032"
+                            },
+                            {
+                                "name": "广东",
+                                "value": "2318426"
+                            },
+                            {
+                                "name": "广西",
+                                "value": "340205"
+                            },
+                            {
+                                "name": "海南",
+                                "value": "89452"
+                            },
+                            {
+                                "name": "重庆",
+                                "value": "298292"
+                            },
+                            {
+                                "name": "四川",
+                                "value": "632672"
+                            },
+                            {
+                                "name": "贵州",
+                                "value": "286023"
+                            },
+                            {
+                                "name": "云南",
+                                "value": "351752"
+                            },
+                            {
+                                "name": "西藏",
+                                "value": "12311"
+                            },
+                            {
+                                "name": "陕西",
+                                "value": "356459"
+                            },
+                            {
+                                "name": "甘肃",
+                                "value": "157059"
+                            },
+                            {
+                                "name": "青海",
+                                "value": "31646"
+                            },
+                            {
+                                "name": "宁夏",
+                                "value": "52536"
+                            },
+                            {
+                                "name": "新疆",
+                                "value": "85392"
+                            },
+                            {
+                                "name": "香港",
+                                "value": "157"
+                            }
+                        ]
+                    }
+                ]
+            };
+            if (option && typeof option === "object") {
+                myChart.setOption(option);
+            }
+            myChart.on('click', function (params) {
+                console.log('click');
+                console.log(params);
+            });
+            //绑定切换图例事件处理  解绑用off
+            myChart.on('legendselectchanged', function (params) {                
+                //myChart.setOption(option);
+            });
+            myChart.hideLoading();
+        };
+    </script>
+</body>
+</html>
